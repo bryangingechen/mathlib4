@@ -18,7 +18,7 @@ jobs:
         id: bench_summary
         run: |
           comment="$(./scripts/bench.sh "${PR}")"
-          printf 'Posting the following to the PR:\n---\n%s\n---\n' "${comment}"
+          printf 'Posting the following to PR%s:\n---\n%s\n---\n' "${PR}" "${comment}"
           printf 'bench_tally=%s' "${comment}" >> "$GITHUB_OUTPUT"
         env:
           PR:  ${{ github.event.issue.number }}
