@@ -19,7 +19,7 @@ jobs:
         run: |
           comment="$(./scripts/bench.sh "${PR}")"
           printf 'Posting the following to PR #%s:\n---\n%s\n---\n' "${PR}" "${comment}"
-          printf 'bench_tally=%s' "${comment}" >> "$GITHUB_OUTPUT"
+          printf 'bench_tally<<EOF\n%s\nEOF%s' "${comment}" >> "$GITHUB_OUTPUT"
         env:
           PR:  ${{ github.event.issue.number }}
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
