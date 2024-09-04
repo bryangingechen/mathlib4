@@ -75,9 +75,11 @@ fi
 
 extractVariations "${src}" "${tgt}" > "${benchFile}"
 
-cat "${leanFile}" | lake env lean --stdin
+echo "run"
+lake env lean --run "${leanFile}"
 
-cat "${leanFile}" | lake env lean --stdin | grep '^|' | gh pr comment "${PR}" --body-file -
+echo "comment"
+cat "${leanFile}" | lake env lean --stdin | gh pr comment "${PR}" --body-file -
 
 #rm -rf "${benchFile}"
 
