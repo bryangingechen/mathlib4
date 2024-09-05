@@ -25,7 +25,7 @@ jobs:
         id: sha
         run: |
           git branch -a
-          echo "sha=$(git rev-parse --verify origin/update-dependencies-bot-use-only)" >> "$GITHUB_ENV"
+          echo "sha=$(git rev-parse --verify origin/update-dependencies-bot-use-only)" >> "$GITHUB_OUTPUT"
 
       - run: echo ${{ steps.sha.outputs.sha }}
 
