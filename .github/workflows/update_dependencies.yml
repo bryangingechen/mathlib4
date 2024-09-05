@@ -27,6 +27,8 @@ jobs:
           git branch -a
           echo "sha=$(git rev-parse --verify origin/update-dependencies-bot-use-only)" >> "$GITHUB_ENV"
 
+      - run: echo ${{ steps.sha.outputs.sha }}
+
       - name: Get PR and labels
         if: ${{ steps.sha.outputs.sha }}
         id: PR # all the steps below are skipped if 'ready-to-merge' is in the list of labels found here
