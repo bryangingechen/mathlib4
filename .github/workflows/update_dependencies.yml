@@ -41,6 +41,8 @@ jobs:
           # Only return if PR is still open
           filterOutClosed: true
 
+      - run: echo ${{ steps.PR.outputs.pr_labels }}
+
       - name: Configure Git User
         if: ${{ !contains(steps.PR.outputs.pr_labels, 'ready-to-merge') }}
         run: |
