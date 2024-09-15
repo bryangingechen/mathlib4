@@ -276,7 +276,7 @@ jobs:
           TOKEN: ${{ secrets.LEAN_PR_TESTING }}
           GITHUB_CONTEXT: ${{ toJson(github) }}
           WORKFLOW_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          BUILD_OUTCOME: ${{ steps.build.outcome }}
+          BUILD_OUTCOME: ${{ steps.buil.outcome }}
           NOISY_OUTCOME: ${{ steps.noisy.outcome }}
           ARCHIVE_OUTCOME: ${{ steps.archive.outcome }}
           COUNTEREXAMPLE_OUTCOME: ${{ steps.counterexamples.outcome }}
