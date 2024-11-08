@@ -79,7 +79,7 @@ jobs:
           echo "SOURCE: ${SOURCE}"
           echo ""
           message="$(
-            ./scripts/maintainer_merge_message.sh "${AUTHOR}" "${COMMENT}" "${SOURCE}" "${PR_NUMBER}" https:"${PR_URL}|" pr_title:"${PR_TITLE}"
+            ./scripts/maintainer_merge_message.sh "${AUTHOR}" "${COMMENT}" "${SOURCE}" "${PR_NUMBER}" "${PR_URL}" pr_title:"${PR_TITLE}"
           )"
           printf 'title<<EOF\n%s\nEOF' "${message}"
           printf 'title<<EOF\n%s\nEOF' "${message}" >> "$GITHUB_OUTPUT"
