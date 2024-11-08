@@ -54,32 +54,18 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
         run: |
           PR_TITLE="${PR_TITLE_ISSUE}${PR_TITLE_PR}"
+          echo "PR_TITLE: '${PR_TITLE:-PR_TITLE not set}'"
           echo "AUTHOR: '${AUTHOR:-AUTHOR not set}'"
           echo "COMMENT: '${COMMENT:-COMMENT not set}'"
-          echo "PR_NUMBER: '${PR_NUMBER}'"
-          echo "PR_URL: '${PR_URL}'"
+          echo "PR_NUMBER: '${PR_NUMBER:-PR_NUMBER not set}'"
+          echo "PR_URL: '${PR_URL:-PR_URL not set}'"
           echo "title: '${PR_TITLE:-PR_TITLE not set}'"
-          echo "EVENT_NAME: '${EVENT_NAME}'"
+          echo "EVENT_NAME: '${EVENT_NAME:-EVENT_NAME not set}'"
           echo "github.event.action: '${{ github.event.action }}'"
-          #case ${EVENT_NAME} in
-          #  issue_comment)
-          #  SOURCE='comment'
-          #  ;;
-          #  pull_request_review)
-          #  SOURCE='review'
-          #  ;;
-          #  pull_request_review_comment)
-          #  SOURCE='review comment'
-          #  ;;
-          #  *)
-          #  SOURCE='unknown origin'
-          #  ;;
-          #esac
 
-          #echo "SOURCE: ${SOURCE}"
           echo ""
           message="$(
-            ./scripts/maintainer_merge_message.sh "${AUTHOR}" "${COMMENT}" "${EVENT_NAME}" "${PR_NUMBER}" "${PR_URL}" pr_title:"${PR_TITLE}"
+            ./scripts/maintainer_merge_message.sh "${AUTHOR}" "${COMMENT}" "${EVENT_NAME}" "${PR_NUMBER}" "${PR_URL}" "${PR_TITLE}"
           )"
           printf 'title<<EOF\n%s\nEOF' "${message}"
           printf 'title<<EOF\n%s\nEOF' "${message}" >> "$GITHUB_OUTPUT"

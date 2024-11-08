@@ -8,6 +8,8 @@ PR="${4}"         # the number of the PR
 URL="${5}"        # the url link to the PR
 PR_TITLE="${6}"   # the title of the PR
 
+# figure out if the message contains `maintainer merge` or `maintainer delegate`
+# and set the `mergeOrDelegate` variable accordingly
 mergeOrDelegate="neither merge nor delegate"
 if printf '%s\n' "${BODY}" | grep -q "^maintainer merge"
 then
@@ -17,6 +19,8 @@ then
   mergeOrDelegate=delegate
 fi
 
+# figure out if the GitHub event starting this action is a comment, a review or a review comment
+# and set the `SOURCE` variable accordingly
 case ${EVENT_NAME} in
   issue_comment)
   SOURCE='comment'
@@ -31,17 +35,6 @@ case ${EVENT_NAME} in
   SOURCE='unknown origin'
   ;;
 esac
-
-GHevent=nothing
-#if [ "${EVENT_NAME}" == "comment" ]
-#then
-#  GHevent=issue
-#elif [ "${EVENT_NAME/% */}" == "review" ]
-#then
-#  GHevent=pull_request
-#fi
-
-#printf $'title<<EOF\n${{ format(\'{0} requested a maintainer %s from %s on PR [#{1}]({2}):\', github.event.%s.user.login, github.event.%s.number, github.event.%s.html_url ) }}\nEOF' "${mergeOrDelegate}" "${EVENT_NAME}" "${EVENT_NAME}" "${GHevent}" "${GHevent}"
 
 printf '%s requested a maintainer %s from %s on PR [#%s](%s):\n' "${AUTHOR}" "${mergeOrDelegate}" "${SOURCE}" "${PR}" "${URL}"
 printf '> %s\n' "${PR_TITLE}"
