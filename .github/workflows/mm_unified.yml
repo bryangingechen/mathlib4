@@ -10,22 +10,21 @@ on:
   pull_request_review_comment:
     types: [created, edited]
 
-env:
-  AUTHOR: ${{ github.event.comment.user.login }}${{ github.event.review.user.login }}
-  PR_NUMBER: ${{ github.event.issue.number }}${{ github.event.pull_request.number }}
-  COMMENT: ${{ github.event.comment.body }}${{ github.event.review.body }}
-  PR_TITLE_ISSUE: ${{ github.event.issue.title }}
-  PR_TITLE_PR: ${{ github.event.pull_request.title }}
-  PR_URL: ${{ github.event.issue.html_url }}${{ github.event.pull_request.html_url }}
-  EVENT_NAME: ${{ github.event_name }}
-
 jobs:
   ping_zulip:
+    env:
+      AUTHOR: ${{ github.event.comment.user.login }}${{ github.event.review.user.login }}
+      PR_NUMBER: ${{ github.event.issue.number }}${{ github.event.pull_request.number }}
+      COMMENT: ${{ github.event.comment.body }}${{ github.event.review.body }}
+      PR_TITLE_ISSUE: ${{ github.event.issue.title }}
+      PR_TITLE_PR: ${{ github.event.pull_request.title }}
+      PR_URL: ${{ github.event.issue.html_url }}${{ github.event.pull_request.html_url }}
+      EVENT_NAME: ${{ github.event_name }}
     name: Ping maintainers on Zulip
-    if: ${{ ((startsWith($COMMENT, 'maintainer merge') ||
-        contains(toJSON($COMMENT), '\nmaintainer merge')) ||
-        (startsWith($COMMENT, 'maintainer delegate') ||
-        contains(toJSON($COMMENT), '\nmaintainer delegate'))) }}
+    if: ${{ ((startsWith(env.COMMENT, 'maintainer merge') ||
+        contains(toJSON(env.COMMENT), '\nmaintainer merge')) ||
+        (startsWith(env.COMMENT, 'maintainer delegate') ||
+        contains(toJSON(env.COMMENT), '\nmaintainer delegate'))) }}
     #if: github.event.issue.pull_request &&
     #    ((startsWith(github.event.comment.body, 'maintainer merge') ||
     #    contains(toJSON(github.event.comment.body), '\nmaintainer merge')) ||
