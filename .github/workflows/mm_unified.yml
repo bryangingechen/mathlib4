@@ -52,7 +52,7 @@ jobs:
         env:
           BODY: ${{ steps.make_comment.outputs.comment }}
           PR_NUMBER: ${{ github.event.issue.number }}${{ github.event.pull_request.number }}
-          COMMENT: ${{ github.event.comment.body }}
+          COMMENT: ${{ github.event.comment.body }}${{ github.event.review.body }}
           PR_TITLE: ${{ github.event.issue.title }}
         run: |
           echo "comment body: '${COMMENT:-COMMENT not set}'"
