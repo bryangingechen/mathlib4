@@ -10,6 +10,15 @@ on:
   pull_request_review_comment:
     types: [created, edited]
 
+env:
+  AUTHOR: ${{ github.event.comment.user.login }}${{ github.event.review.user.login }}
+  PR_NUMBER: ${{ github.event.issue.number }}${{ github.event.pull_request.number }}
+  COMMENT: ${{ github.event.comment.body }}${{ github.event.review.body }}
+  PR_TITLE_ISSUE: ${{ github.event.issue.title }}
+  PR_TITLE_PR: ${{ github.event.pull_request.title }}
+  PR_URL: ${{ github.event.issue.html_url }}${{ github.event.pull_request.html_url }}
+  EVENT_NAME: ${{ github.event_name }}
+
 jobs:
   ping_zulip:
     name: Ping maintainers on Zulip
@@ -44,14 +53,6 @@ jobs:
 
       - name: Form the message
         id: merge_or_delegate
-        env:
-          AUTHOR: ${{ github.event.comment.user.login }}${{ github.event.review.user.login }}
-          PR_NUMBER: ${{ github.event.issue.number }}${{ github.event.pull_request.number }}
-          COMMENT: ${{ github.event.comment.body }}${{ github.event.review.body }}
-          PR_TITLE_ISSUE: ${{ github.event.issue.title }}
-          PR_TITLE_PR: ${{ github.event.pull_request.title }}
-          PR_URL: ${{ github.event.issue.html_url }}${{ github.event.pull_request.html_url }}
-          EVENT_NAME: ${{ github.event_name }}
         run: |
           PR_TITLE="${PR_TITLE_ISSUE}${PR_TITLE_PR}"
           echo "PR_TITLE: '${PR_TITLE:-PR_TITLE not set}'"
