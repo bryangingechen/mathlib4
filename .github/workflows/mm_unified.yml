@@ -57,7 +57,6 @@ jobs:
         run: |
           echo "comment body: '${COMMENT:-COMMENT not set}'"
           echo "PR_NUMBER: '${PR_NUMBER}'"
-          echo "pr?: '${{ github.event.issue.pull_request }}'"
           echo "title: '${PR_TITLE:-PR_TITLE not set}'"
           echo "github.event_name: '${{ github.event_name }}'"
           echo "github.ref: '${{ github.ref }}'"
