@@ -4,6 +4,9 @@ on:
   #push:
   issue_comment:
     types: [created, edited]
+  pull_request_review:
+    # triggers on a review, whether or not it is accompanied by a comment
+    types: [submitted]
 
 jobs:
   ping_zulip:
