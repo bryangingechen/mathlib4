@@ -22,10 +22,10 @@ env:
 jobs:
   ping_zulip:
     name: Ping maintainers on Zulip
-    if: ${{ ((startsWith(env.COMMENT, 'maintainer merge') ||
-        contains(toJSON(env.COMMENT), '\nmaintainer merge')) ||
-        (startsWith(env.COMMENT, 'maintainer delegate') ||
-        contains(toJSON(env.COMMENT), '\nmaintainer delegate'))) }}
+    if: ${{ ((startsWith($COMMENT, 'maintainer merge') ||
+        contains(toJSON($COMMENT), '\nmaintainer merge')) ||
+        (startsWith($COMMENT, 'maintainer delegate') ||
+        contains(toJSON($COMMENT), '\nmaintainer delegate'))) }}
     #if: github.event.issue.pull_request &&
     #    ((startsWith(github.event.comment.body, 'maintainer merge') ||
     #    contains(toJSON(github.event.comment.body), '\nmaintainer merge')) ||
