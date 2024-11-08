@@ -34,11 +34,6 @@ jobs:
         #with:
         #  ref: master
 
-      - name: Make comment
-        id: make_comment
-        run: |
-          printf 'comment<<EEE\nHello\nmaintainer merge\nsomething else\nEEE' >> "$GITHUB_OUTPUT"
-
       - name: Determine Zulip topic
         id: determine_topic
         run: |
@@ -51,7 +46,6 @@ jobs:
         id: merge_or_delegate
         env:
           AUTHOR: ${{ github.event.comment.user.login }}${{ github.event.review.user.login }}
-          BODY: ${{ steps.make_comment.outputs.comment }}
           PR_NUMBER: ${{ github.event.issue.number }}${{ github.event.pull_request.number }}
           COMMENT: ${{ github.event.comment.body }}${{ github.event.review.body }}
           PR_TITLE_ISSUE: ${{ github.event.issue.title }}
