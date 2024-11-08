@@ -51,6 +51,7 @@ jobs:
           PR_TITLE_ISSUE: ${{ github.event.issue.title }}
           PR_TITLE_PR: ${{ github.event.pull_request.title }}
           PR_URL: ${{ github.event.issue.html_url }}${{ github.event.pull_request.html_url }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           PR_TITLE="${PR_TITLE_ISSUE}${PR_TITLE_PR}"
           echo "AUTHOR: '${AUTHOR:-AUTHOR not set}'"
@@ -58,11 +59,27 @@ jobs:
           echo "PR_NUMBER: '${PR_NUMBER}'"
           echo "PR_URL: '${PR_URL}'"
           echo "title: '${PR_TITLE:-PR_TITLE not set}'"
-          echo "github.event_name: '${{ github.event_name }}'"
+          echo "EVENT_NAME: '${EVENT_NAME}'"
           echo "github.event.action: '${{ github.event.action }}'"
+          case ${EVENT_NAME} in
+            issue_comment)
+            SOURCE='comment'
+            ;;
+            pull_request_review)
+            SOURCE='review'
+            ;;
+            pull_request_review_comment)
+            SOURCE='review comment'
+            ;;
+            *)
+            SOURCE='unknown origin'
+            ;;
+          esac
+
+          echo "SOURCE: ${SOURCE}"
           echo ""
           message="$(
-            ./scripts/maintainer_merge_message.sh "${AUTHOR}" "${COMMENT}" comment "${PR_NUMBER}" https:"${PR_URL}|" pr_title:"${PR_TITLE}"
+            ./scripts/maintainer_merge_message.sh "${AUTHOR}" "${COMMENT}" "${SOURCE}" "${PR_NUMBER}" https:"${PR_URL}|" pr_title:"${PR_TITLE}"
           )"
           printf 'title<<EOF\n%s\nEOF' "${message}"
           printf 'title<<EOF\n%s\nEOF' "${message}" >> "$GITHUB_OUTPUT"
