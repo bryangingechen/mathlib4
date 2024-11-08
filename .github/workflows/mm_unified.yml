@@ -62,7 +62,7 @@ jobs:
           echo "github.event.action: '${{ github.event.action }}'"
           echo ""
           message="$(
-            ./scripts/maintainer_merge_message.sh "${AUTHOR}" COMMENT:"${COMMENT}|" comment "${PR_NUMBER}" https:"${PR_URL}|" pr_title:"${PR_TITLE}"
+            ./scripts/maintainer_merge_message.sh "${AUTHOR}" "${COMMENT}" comment "${PR_NUMBER}" https:"${PR_URL}|" pr_title:"${PR_TITLE}"
           )"
           printf 'title<<EOF\n%s\nEOF' "${message}"
           printf 'title<<EOF\n%s\nEOF' "${message}" >> "$GITHUB_OUTPUT"
