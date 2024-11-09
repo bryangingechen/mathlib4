@@ -29,7 +29,7 @@ jobs:
         run: |
           COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
           COMMENT="$(printf '%s' "$COMMENT" | tr -d '\r')"
-          echo "$COMMENT" | hexdump -c
+          printf '\n%s\n' "${COMMENT}" | hexdump -c
           printf 'Comment:\n%s\n' "${COMMENT}"
           m_or_d="$(printf '\n%s\n' "${COMMENT}" |
             sed -n 's=^\n*maintainer  *\(merge\|delegate\)$=\1=p;q')"
