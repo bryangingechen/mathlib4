@@ -31,8 +31,8 @@ jobs:
           COMMENT="$(printf '%s' "$COMMENT" | tr -d '\r')"
           echo "$COMMENT" | hexdump -c
           printf 'Comment:\n%s\n' "${COMMENT}"
-          m_or_d="$(printf '%s\n' "${COMMENT}" |
-            sed -n 's=^maintainer  *\(merge\|delegate\)$=\1=p;q')"
+          m_or_d="$(printf '\n%s\n' "${COMMENT}" |
+            sed -n 's=^\n*maintainer  *\(merge\|delegate\)$=\1=p;q')"
 
           printf $'"maintainer delegate" or "maintainer merge" found? \'%s\'\n' "${m_or_d}"
 
