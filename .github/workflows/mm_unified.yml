@@ -36,7 +36,7 @@ jobs:
           #echo "GREP:"
           #printf '%s\n' "${COMMENT}" | grep "^maintainer \(merge\|delegate\)"
       - name: continue
-        if: ${{ ! steps.merge_or_delegate.outputs.* == '' }}
+        if: ${{ ! steps.merge_or_delegate.outputs.mOrD == '' }}
         #if: github.event.issue.pull_request &&
         #    ((startsWith(github.event.comment.body, 'maintainer merge') ||
         #    contains(toJSON(github.event.comment.body), '\nmaintainer merge')) ||
