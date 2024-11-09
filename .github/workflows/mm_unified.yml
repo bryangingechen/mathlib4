@@ -30,7 +30,7 @@ jobs:
           m_or_d="$(printf '%s\n' "${COMMENT}" |
             sed -n '0,/^maintainer *\(merge\|delegate\)$/ {s=maintainer *==p;q}')"
 
-          printf '"maintainer delegate" or "maintainer merge" found?\n\n' "${m_or_d}"
+          printf '"maintainer delegate" or "maintainer merge" found?\n%s\n' "${m_or_d}"
 
           printf $'mOrD=\'%s\'' "${m_or_d}" > "${GITHUB_OUTPUT}"
           #echo "GREP:"
