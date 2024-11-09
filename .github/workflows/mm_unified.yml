@@ -101,10 +101,7 @@ jobs:
       #    to: 'mathlib reviewers'
       #    type: 'stream'
       #    topic: ${{ steps.determine_topic.outputs.topic }}
-      #    content: |
-      #      ${{ steps.form_the_message.outputs.title }}
-
-      #      > ${{ github.event.issue.title }}
+      #    content: ${{ steps.form_the_message.outputs.title }}
 
       - name: Add comment to PR
         if: ${{ ! steps.merge_or_delegate.outputs.mOrD == '' }}
