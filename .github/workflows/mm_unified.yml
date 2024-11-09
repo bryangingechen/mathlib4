@@ -33,9 +33,9 @@ jobs:
           echo "PRINT:"
           printf '%s\n' "${COMMENT}"
           echo "SED:"
-          printf '%s\n' "${COMMENT}" | sed '0,/^maintainer *\(merge\|delegate\)$/ {s=maintainer *==}'
-          echo "GREP:"
-          printf '%s\n' "${COMMENT}" | grep "^maintainer \(merge\|delegate\)"
+          printf '%s\n' "${COMMENT}" | sed -n '0,/^maintainer *\(merge\|delegate\)$/ {s=maintainer *==p}'
+          #echo "GREP:"
+          #printf '%s\n' "${COMMENT}" | grep "^maintainer \(merge\|delegate\)"
       #- name: Check whether user is part of mathlib-reviewers team
       #  uses: TheModdingInquisition/actions-team-membership@v1.0
       #  with:
