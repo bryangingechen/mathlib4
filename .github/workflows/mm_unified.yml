@@ -26,7 +26,7 @@ jobs:
       - name: Find maintainer merge/delegate
         id: merge_or_delegate
         run: |
-          COMMENT="$(printf '%s' "$COMMENT" | tr -d '\r')"
+          COMMENT="$(printf '%s\n' "$COMMENT" | tr -d '\r')"
           echo "$COMMENT" | hexdump -c
           printf 'Comment:\n%s\n' "${COMMENT}"
           m_or_d="$(printf '%s\n' "${COMMENT}" |
