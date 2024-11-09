@@ -53,64 +53,63 @@ jobs:
         #    exit: true # optional. If the action should exit if the user is not part of the team. Defaults to true.
 
         uses: actions/checkout@v4
-        steps:
-          #with:
-          #  ref: master
+        #with:
+        #  ref: master
 
-          - name: Determine Zulip topic
-            id: determine_topic
-            run: |
-              ./scripts/get_tlabel.sh "${PR}" >> "$GITHUB_OUTPUT"
-            env:
-              PR:  /repos/leanprover-community/mathlib4/issues/${{ github.event.issue.number }}
-              GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Determine Zulip topic
+        id: determine_topic
+        run: |
+          ./scripts/get_tlabel.sh "${PR}" >> "$GITHUB_OUTPUT"
+        env:
+          PR:  /repos/leanprover-community/mathlib4/issues/${{ github.event.issue.number }}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-          - name: Form the message
-            id: form_the_message
-            run: |
-              PR_TITLE="${PR_TITLE_ISSUE}${PR_TITLE_PR}"
-              echo "PR_TITLE: '${PR_TITLE:-PR_TITLE not set}'"
-              echo "AUTHOR: '${AUTHOR:-AUTHOR not set}'"
-              echo "COMMENT: '${COMMENT:-COMMENT not set}'"
-              echo "PR_NUMBER: '${PR_NUMBER:-PR_NUMBER not set}'"
-              echo "PR_URL: '${PR_URL:-PR_URL not set}'"
-              echo "title: '${PR_TITLE:-PR_TITLE not set}'"
-              echo "EVENT_NAME: '${EVENT_NAME:-EVENT_NAME not set}'"
-              echo "github.event.action: '${{ github.event.action }}'"
+      - name: Form the message
+        id: form_the_message
+        run: |
+          PR_TITLE="${PR_TITLE_ISSUE}${PR_TITLE_PR}"
+          echo "PR_TITLE: '${PR_TITLE:-PR_TITLE not set}'"
+          echo "AUTHOR: '${AUTHOR:-AUTHOR not set}'"
+          echo "COMMENT: '${COMMENT:-COMMENT not set}'"
+          echo "PR_NUMBER: '${PR_NUMBER:-PR_NUMBER not set}'"
+          echo "PR_URL: '${PR_URL:-PR_URL not set}'"
+          echo "title: '${PR_TITLE:-PR_TITLE not set}'"
+          echo "EVENT_NAME: '${EVENT_NAME:-EVENT_NAME not set}'"
+          echo "github.event.action: '${{ github.event.action }}'"
 
-              echo ""
-              message="$(
-                ./scripts/maintainer_merge_message.sh "${AUTHOR}" "${COMMENT}" "${EVENT_NAME}" "${PR_NUMBER}" "${PR_URL}" "${PR_TITLE}"
-              )"
-              printf 'title<<EOF\n%s\nEOF' "${message}"
-              printf 'title<<EOF\n%s\nEOF' "${message}" >> "$GITHUB_OUTPUT"
+          echo ""
+          message="$(
+            ./scripts/maintainer_merge_message.sh "${AUTHOR}" "${COMMENT}" "${EVENT_NAME}" "${PR_NUMBER}" "${PR_URL}" "${PR_TITLE}"
+          )"
+          printf 'title<<EOF\n%s\nEOF' "${message}"
+          printf 'title<<EOF\n%s\nEOF' "${message}" >> "$GITHUB_OUTPUT"
 
-          #- name: Send message on Zulip
-          #  uses: zulip/github-actions-zulip/send-message@v1
-          #  with:
-          #    api-key: ${{ secrets.ZULIP_API_KEY }}
-          #    email: 'github-mathlib4-bot@leanprover.zulipchat.com'
-          #    organization-url: 'https://leanprover.zulipchat.com'
-          #    to: 'mathlib reviewers'
-          #    type: 'stream'
-          #    topic: ${{ steps.determine_topic.outputs.topic }}
-          #    content: |
-          #      ${{ steps.form_the_message.outputs.title }}
+      #- name: Send message on Zulip
+      #  uses: zulip/github-actions-zulip/send-message@v1
+      #  with:
+      #    api-key: ${{ secrets.ZULIP_API_KEY }}
+      #    email: 'github-mathlib4-bot@leanprover.zulipchat.com'
+      #    organization-url: 'https://leanprover.zulipchat.com'
+      #    to: 'mathlib reviewers'
+      #    type: 'stream'
+      #    topic: ${{ steps.determine_topic.outputs.topic }}
+      #    content: |
+      #      ${{ steps.form_the_message.outputs.title }}
 
-          #      > ${{ github.event.issue.title }}
+      #      > ${{ github.event.issue.title }}
 
-          - name: Add comment to PR
-            uses: GrantBirki/comment@v2
-            with:
-              issue-number: 18736 # ${{ github.event.issue.number }}
-              body: |
-                🚀 Pull request has been placed on the maintainer queue by ${{ github.event.comment.user.login }}.
-                ${{ steps.form_the_message.outputs.title }}
+      - name: Add comment to PR
+        uses: GrantBirki/comment@v2
+        with:
+          issue-number: 18736 # ${{ github.event.issue.number }}
+          body: |
+            🚀 Pull request has been placed on the maintainer queue by ${{ github.event.comment.user.login }}.
+            ${{ steps.form_the_message.outputs.title }}
 
-          #- name: Add label to PR
-          #  uses: actions/github-script@v7
-          #  with:
-          #    github-token: ${{secrets.GITHUB_TOKEN}}
-          #    script: |
-          #      const { owner, repo, number: issue_number } = context.issue;
-          #      await github.rest.issues.addLabels({ owner, repo, issue_number, labels: ['maintainer-merge'] });
+      #- name: Add label to PR
+      #  uses: actions/github-script@v7
+      #  with:
+      #    github-token: ${{secrets.GITHUB_TOKEN}}
+      #    script: |
+      #      const { owner, repo, number: issue_number } = context.issue;
+      #      await github.rest.issues.addLabels({ owner, repo, issue_number, labels: ['maintainer-merge'] });
