@@ -45,6 +45,8 @@ jobs:
           printf $'"maintainer delegate" or "maintainer merge" found? \'%s\'\n' "${m_or_d}"
 
           printf $'mOrD=%s\n' "${m_or_d}" > "${GITHUB_OUTPUT}"
+          printf '%s' "${COMMENT}" |
+            sed -n 's=maintainer  *\(merge\|delegate\)=\1=p'
           #echo "GREP:"
           #printf '%s\n' "${COMMENT}" | grep "^maintainer \(merge\|delegate\)"
       - name: Checkout
