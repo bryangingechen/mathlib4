@@ -33,7 +33,9 @@ jobs:
         id: merge_or_delegate
         run: |
           COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
+          # we strip `\r` since line endings from GitHub contain this character
           COMMENT="${COMMENT//$'\r'/}"
+          # for debugging, we print some information
           printf '%s' "${COMMENT}" | hexdump -cC
           printf 'Comment:"%s"\n' "${COMMENT}"
           m_or_d="$(printf '%s' "${COMMENT}" |
@@ -44,11 +46,7 @@ jobs:
           printf $'mOrD=%s\n' "${m_or_d}" > "${GITHUB_OUTPUT}"
       - name: Checkout
         if: ${{ ! steps.merge_or_delegate.outputs.mOrD == '' }}
-        #if: github.event.issue.pull_request &&
-        #    ((startsWith(github.event.comment.body, 'maintainer merge') ||
-        #    contains(toJSON(github.event.comment.body), '\nmaintainer merge')) ||
-        #    (startsWith(github.event.comment.body, 'maintainer delegate') ||
-        #    contains(toJSON(github.event.comment.body), '\nmaintainer delegate')))
+
         #- name: Check whether user is part of mathlib-reviewers team
         #  uses: TheModdingInquisition/actions-team-membership@v1.0
         #  with:
@@ -60,8 +58,6 @@ jobs:
         #    exit: true # optional. If the action should exit if the user is not part of the team. Defaults to true.
 
         uses: actions/checkout@v4
-        #with:
-        #  ref: master
 
       - name: Determine Zulip topic
         if: ${{ ! steps.merge_or_delegate.outputs.mOrD == '' }}
@@ -76,6 +72,7 @@ jobs:
         if: ${{ ! steps.merge_or_delegate.outputs.mOrD == '' }}
         id: form_the_message
         run: |
+          # for debugging, we print the available variables
           M_or_D="${{ steps.merge_or_delegate.outputs.mOrD }}"
           PR_TITLE="${PR_TITLE_ISSUE}${PR_TITLE_PR}"
           echo "PR_TITLE: '${PR_TITLE:-PR_TITLE not set}'"
