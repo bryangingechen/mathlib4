@@ -73,15 +73,6 @@ jobs:
         id: form_the_message
         run: |
           # for debugging, we print the available variables
-          M_or_D="${{ steps.merge_or_delegate.outputs.mOrD }}"
-          PR_TITLE="${PR_TITLE_ISSUE}${PR_TITLE_PR}"
-          echo "PR_TITLE: '${PR_TITLE:-PR_TITLE not set}'"
-          echo "AUTHOR: '${AUTHOR:-AUTHOR not set}'"
-          echo "M_or_D: ${M_or_D:-M_or_D not set}"
-          echo "PR_NUMBER: '${PR_NUMBER:-PR_NUMBER not set}'"
-          echo "PR_URL: '${PR_URL:-PR_URL not set}'"
-          echo "title: '${PR_TITLE:-PR_TITLE not set}'"
-          echo "EVENT_NAME: '${EVENT_NAME:-EVENT_NAME not set}'"
           echo "github.event.action: '${{ github.event.action }}'"
 
           echo ""
