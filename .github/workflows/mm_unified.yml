@@ -71,13 +71,11 @@ jobs:
         if: ${{ ! steps.merge_or_delegate.outputs.mOrD == '' }}
         id: form_the_message
         run: |
-          COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
           M_or_D="${{ steps.merge_or_delegate.outputs.mOrD }}"
           PR_TITLE="${PR_TITLE_ISSUE}${PR_TITLE_PR}"
           echo "PR_TITLE: '${PR_TITLE:-PR_TITLE not set}'"
           echo "AUTHOR: '${AUTHOR:-AUTHOR not set}'"
           echo "M_or_D: ${M_or_D:-M_or_D not set}"
-          echo "COMMENT: '${COMMENT:-COMMENT not set}'"
           echo "PR_NUMBER: '${PR_NUMBER:-PR_NUMBER not set}'"
           echo "PR_URL: '${PR_URL:-PR_URL not set}'"
           echo "title: '${PR_TITLE:-PR_TITLE not set}'"
