@@ -33,7 +33,7 @@ jobs:
           echo "PRINT:"
           printf '%s\n' "${COMMENT}"
           echo "SED:"
-          printf '%s\n' "${COMMENT}" | sed '0,/^maintainer *\(merge\|delegate\)$/ {s=maintainer *==}
+          printf '%s\n' "${COMMENT}" | sed '0,/^maintainer *\(merge\|delegate\)$/ {s=maintainer *==}'
           echo "GREP:"
           printf '%s\n' "${COMMENT}" | grep "^maintainer \(merge\|delegate\)"
       #- name: Check whether user is part of mathlib-reviewers team
