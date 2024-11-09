@@ -15,7 +15,8 @@ jobs:
     env:
       AUTHOR: ${{ github.event.comment.user.login }}${{ github.event.review.user.login }}
       PR_NUMBER: ${{ github.event.issue.number }}${{ github.event.pull_request.number }}
-      COMMENT: ${{ github.event.comment.body }}${{ github.event.review.body }}
+      COMMENT_EVENT: ${{ github.event.comment.body }}
+      REVIEW: ${{ github.event.review.body }}
       PR_TITLE_ISSUE: ${{ github.event.issue.title }}
       PR_TITLE_PR: ${{ github.event.pull_request.title }}
       PR_URL: ${{ github.event.issue.html_url }}${{ github.event.pull_request.html_url }}
@@ -26,6 +27,7 @@ jobs:
       - name: Find maintainer merge/delegate
         id: merge_or_delegate
         run: |
+          COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
           printf 'Comment:\n%s\n' "${COMMENT}"
           m_or_d="$(printf '%s\n' "${COMMENT}" |
             sed -n 's=^maintainer  *\(merge\|delegate\)$=\1=p;q')"
@@ -69,6 +71,7 @@ jobs:
         if: ${{ ! steps.merge_or_delegate.outputs.mOrD == '' }}
         id: form_the_message
         run: |
+          COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
           M_or_D="${{ steps.merge_or_delegate.outputs.mOrD }}"
           PR_TITLE="${PR_TITLE_ISSUE}${PR_TITLE_PR}"
           echo "PR_TITLE: '${PR_TITLE:-PR_TITLE not set}'"
