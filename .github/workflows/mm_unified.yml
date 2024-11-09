@@ -35,11 +35,10 @@ jobs:
           echo "COMMENT_BOTH"
           printf '\n%s\n' "${COMMENT_BOTH}" | hexdump -cC
           COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
-          COMMENT="$(printf '%s' "$COMMENT" | tr -d '\r')"
-          printf '\n%s\n' "${COMMENT}" | hexdump -cC
-          printf 'Comment:\n%s\n' "${COMMENT}"
-          m_or_d="$(printf '\n%s\n' "${COMMENT}" |
-            tr '\n' '\n' |
+          COMMENT="$(printf '\n%s\n' "$COMMENT" | tr -d '\r')"
+          printf '%s' "${COMMENT}" | hexdump -cC
+          printf 'Comment:%s' "${COMMENT}"
+          m_or_d="$(printf '%s' "${COMMENT}" |
             sed -n 's=^maintainer  *\(merge\|delegate\)$=\1=p;q')"
 
           printf $'"maintainer delegate" or "maintainer merge" found? \'%s\'\n' "${m_or_d}"
