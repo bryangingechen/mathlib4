@@ -28,6 +28,7 @@ jobs:
         id: merge_or_delegate
         run: |
           COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
+          echo "$COMMENT" | hexdump -c
           printf 'Comment:\n%s\n' "${COMMENT}"
           m_or_d="$(printf '%s\n' "${COMMENT}" |
             sed -n 's=^maintainer  *\(merge\|delegate\)$=\1=p;q')"
