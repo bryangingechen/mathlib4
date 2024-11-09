@@ -27,9 +27,12 @@ jobs:
         id: merge_or_delegate
         run: |
           printf 'Comment:\n%s\n' "${COMMENT}"
-          printf '"maintainer delegate" or "maintainer merge" found?\n'
-          printf '%s\n' "${COMMENT}" |
-            sed -n '0,/^maintainer *\(merge\|delegate\)$/ {s=maintainer *==p;q}' | tee "${GITHUB_OUTPUT}"
+          m_or_d="$(printf '%s\n' "${COMMENT}" |
+            sed -n '0,/^maintainer *\(merge\|delegate\)$/ {s=maintainer *==p;q}')"
+
+          printf '"maintainer delegate" or "maintainer merge" found?\n\n' "${m_or_d}"
+
+          printf $'mOrD=\'%s\'' "${m_or_d}" > "${GITHUB_OUTPUT}"
           #echo "GREP:"
           #printf '%s\n' "${COMMENT}" | grep "^maintainer \(merge\|delegate\)"
       - name: continue
