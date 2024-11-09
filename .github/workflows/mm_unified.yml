@@ -110,9 +110,11 @@ jobs:
         if: ${{ ! steps.merge_or_delegate.outputs.mOrD == '' }}
         uses: GrantBirki/comment@v2
         with:
+          # if a comment triggers the action, then `issue.number` is set
+          # if a review or review comment triggers the action, then `pull_request.number` is set
           issue-number: ${{ github.event.issue.number }}${{ github.event.pull_request.number }}
           body: |
-            🚀 Pull request has been placed on the maintainer queue by ${{ github.event.comment.user.login }}.
+            🚀 Pull request has been placed on the maintainer queue by ${AUTHOR}.
             ${{ steps.form_the_message.outputs.title }}
 
       #- name: Add label to PR
