@@ -17,6 +17,7 @@ jobs:
       PR_NUMBER: ${{ github.event.issue.number }}${{ github.event.pull_request.number }}
       COMMENT_EVENT: ${{ github.event.comment.body }}
       COMMENT_REVIEW: ${{ github.event.review.body }}
+      COMMENT_BOTH: ${{ github.event.comment.body }}${{ github.event.review.body }}
       PR_TITLE_ISSUE: ${{ github.event.issue.title }}
       PR_TITLE_PR: ${{ github.event.pull_request.title }}
       PR_URL: ${{ github.event.issue.html_url }}${{ github.event.pull_request.html_url }}
@@ -27,6 +28,12 @@ jobs:
       - name: Find maintainer merge/delegate
         id: merge_or_delegate
         run: |
+          echo "COMMENT_EVENT"
+          printf '\n%s\n' "${COMMENT_EVENT}" | hexdump -c
+          echo "COMMENT_REVIEW"
+          printf '\n%s\n' "${COMMENT_REVIEW}" | hexdump -c
+          echo "COMMENT_BOTH"
+          printf '\n%s\n' "${COMMENT_BOTH}" | hexdump -c
           COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
           COMMENT="$(printf '%s' "$COMMENT" | tr -d '\r')"
           printf '\n%s\n' "${COMMENT}" | hexdump -c
