@@ -36,7 +36,7 @@ jobs:
           printf '\n%s\n' "${COMMENT_BOTH}" | hexdump -cC
           COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
           #COMMENT="$(printf '\n%s\n' "$COMMENT" | tr -d '\r')"
-          COMMENT="${COMMENT//$'\r'/$'\n'}
+          COMMENT="${COMMENT//$'\r'/}"
           printf '%s' "${COMMENT}" | hexdump -cC
           printf 'Comment:%s' "${COMMENT}"
           m_or_d="$(printf '%s' "${COMMENT}" |
