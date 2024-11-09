@@ -34,18 +34,18 @@ jobs:
           #printf '\n%s\n' "${COMMENT_REVIEW}" | hexdump -cC
           #echo "COMMENT_BOTH"
           #printf '\n%s\n' "${COMMENT_BOTH}" | hexdump -cC
-          #COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
+          COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
           ##COMMENT="$(printf '\n%s\n' "$COMMENT" | tr -d '\r')"
           #COMMENT="${COMMENT//$'\r'/}"
           #printf '%s' "${COMMENT}" | hexdump -cC
           #printf 'Comment:%s' "${COMMENT}"
-          m_or_d="$(printf '%s' "${COMMENT_BOTH}" |
+          m_or_d="$(printf '%s' "${COMMENT}" |
             sed -n 's=^maintainer  *\(merge\|delegate\)$=\1=p' | head -1)"
 
           printf $'"maintainer delegate" or "maintainer merge" found? \'%s\'\n' "${m_or_d}"
 
           printf $'mOrD=%s\n' "${m_or_d}" > "${GITHUB_OUTPUT}"
-          printf '%s' "${COMMENT_BOTH}" |
+          printf '%s' "${COMMENT}" |
             sed -n 's=^maintainer  *\(merge\|delegate\)$=\1=p'
           #echo "GREP:"
           #printf '%s\n' "${COMMENT}" | grep "^maintainer \(merge\|delegate\)"
