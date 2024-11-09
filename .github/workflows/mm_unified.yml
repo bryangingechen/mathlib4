@@ -32,7 +32,7 @@ jobs:
 
           printf $'"maintainer delegate" or "maintainer merge" found? \'%s\'\n' "${m_or_d}"
 
-          printf $'mOrD=%s' "${m_or_d}" > "${GITHUB_OUTPUT}"
+          printf $'mOrD=%s\n' "${m_or_d}" > "${GITHUB_OUTPUT}"
           #echo "GREP:"
           #printf '%s\n' "${COMMENT}" | grep "^maintainer \(merge\|delegate\)"
       - name: continue
