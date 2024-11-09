@@ -29,14 +29,14 @@ jobs:
         id: merge_or_delegate
         run: |
           echo "COMMENT_EVENT"
-          printf '\n%s\n' "${COMMENT_EVENT}" | hexdump -c
+          printf '\n%s\n' "${COMMENT_EVENT}" | hexdump -C
           echo "COMMENT_REVIEW"
-          printf '\n%s\n' "${COMMENT_REVIEW}" | hexdump -c
+          printf '\n%s\n' "${COMMENT_REVIEW}" | hexdump -C
           echo "COMMENT_BOTH"
-          printf '\n%s\n' "${COMMENT_BOTH}" | hexdump -c
+          printf '\n%s\n' "${COMMENT_BOTH}" | hexdump -C
           COMMENT="${COMMENT_EVENT}${COMMENT_REVIEW}"
           COMMENT="$(printf '%s' "$COMMENT" | tr -d '\r')"
-          printf '\n%s\n' "${COMMENT}" | hexdump -c
+          printf '\n%s\n' "${COMMENT}" | hexdump -C
           printf 'Comment:\n%s\n' "${COMMENT}"
           m_or_d="$(printf '\n%s\n' "${COMMENT}" |
             tr '\n' '\n' |
