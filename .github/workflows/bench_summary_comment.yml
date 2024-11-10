@@ -11,6 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - uses: actions/checkout@v4
+        with:
+          ref: adomani/improve_messaging_bench_action #master
+          sparse-checkout: |
+            scripts/bench_summary.lean
+            .github/workflows/bench_summary_comment.yml
+
       - name: Summarize bench output
         run: |
           printf $'\neval "CI run: https://github.com/%s/actions/runs/%s"\n' "${{ github.repository }}" "${{ github.run_id }}"
@@ -30,13 +37,6 @@ jobs:
           curl -sSfL https://github.com/leanprover/elan/releases/download/v3.1.1/elan-x86_64-unknown-linux-gnu.tar.gz | tar xz
           ./elan-init -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "${GITHUB_PATH}"
-
-      - uses: actions/checkout@v4
-        with:
-          ref: adomani/improve_messaging_bench_action #master
-          sparse-checkout: |
-            scripts/bench_summary.lean
-            .github/workflows/bench_summary_comment.yml
 
       - name: Summarize bench output
         run: |
