@@ -10,6 +10,20 @@ jobs:
     if: github.event.issue.pull_request && (startsWith(github.event.comment.body, 'Here are the [benchmark results]'))
     runs-on: ubuntu-latest
     steps:
+
+      - name: Summarize bench output
+        run: |
+          printf $'\neval "CI run: https://github.com/%s/actions/runs/%s"\n' "${{ github.repository }}" "${{ github.run_id }}"
+          {
+            cat scripts/bench_summary.lean
+            printf $'run_cmd BenchAction.addBenchSummaryComment %s "leanprover-community/mathlib4" "adomani"' "${PR}"
+            printf $'\neval "CI run: https://github.com/%s/actions/runs/%s"\n' "${{ github.repository }}" "${{ github.run_id }}"
+          } |
+            lake env lean --stdin
+        env:
+          PR:  ${{ github.event.issue.number }}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
       - name: install elan
         run: |
           set -o pipefail
