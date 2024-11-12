@@ -2626,7 +2626,6 @@ import Mathlib.Data.Nat.Log
 import Mathlib.Data.Nat.MaxPowDiv
 import Mathlib.Data.Nat.ModEq
 import Mathlib.Data.Nat.Multiplicity
-import Mathlib.Data.Nat.New
 import Mathlib.Data.Nat.Notation
 import Mathlib.Data.Nat.Nth
 import Mathlib.Data.Nat.Order.Lemmas
