@@ -37,6 +37,7 @@ jobs:
           # the checkout dance, to avoid a detached head
           git checkout master
           git checkout -
+          git diff --name-only origin/master...HEAD
           lake exe autolabel "$NUMBER"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
