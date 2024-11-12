@@ -292,6 +292,7 @@ unsafe def main (args : List String): IO UInt32 := do
 
   println s!"::notice::Applicable labels: {labels}"
 
+  dbg_trace "available labels {mathlibLabels.map (·.label)}"
   match labels with
   | #[] =>
     println s!"::warning::no label to add"
