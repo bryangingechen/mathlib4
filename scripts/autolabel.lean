@@ -303,7 +303,7 @@ unsafe def main (args : List String): IO UInt32 := do
       dbg_trace "PR number '{n}'"
       let labelsPresent ← IO.Process.run {
         cmd := "gh"
-        args := #["pr", "view", "15", "--json", "labels", "--jq", "'.labels .[] .name'"]}
+        args := #["pr", "view", "15", "--json", "labels", "--jq", ".labels .[] .name"]}
       dbg_trace "labelsPresent {labelsPresent}"
       let labels := labelsPresent.split (· == '\n')
       let autoLabels := mathlibLabels.map (·.label)
