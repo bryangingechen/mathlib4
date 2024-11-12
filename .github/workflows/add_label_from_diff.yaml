@@ -35,8 +35,13 @@ jobs:
       - name: lake exe autolabel
         run: |
           # the checkout dance, to avoid a detached head
+          printf 'git checkout master\n'
           git checkout master
+          printf 'git checkout -\n'
           git checkout -
+          printf 'git diff --name-only origin/master...HEAD\n'
+          git diff --name-only origin/master...HEAD
+          printf 'lake exe autolabel %s\n' "$NUMBER"
           lake exe autolabel "$NUMBER"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
