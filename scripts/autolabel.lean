@@ -299,9 +299,11 @@ unsafe def main (args : List String): IO UInt32 := do
   | #[label] =>
     match prNumber? with
     | some n =>
+      dbg_trace "PR number {n}"
       let labelsPresent ← IO.Process.run {
         cmd := "gh"
         args := #["pr", "view", n, "--json", "labels", "--jq", "'.labels .[] .name'"]}
+      dbg_trace "labelsPresent {labelsPresent}"
       let labels := labelsPresent.split (· == '\n')
       let autoLabels := mathlibLabels.map (·.label)
       let t_labels_already_present := labels.filter autoLabels.contains
