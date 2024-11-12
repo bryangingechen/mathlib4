@@ -289,18 +289,21 @@ unsafe def main (args : List String): IO UInt32 := do
 
   -- find labels covering the modified files
   let labels := getMatchingLabels modifiedFiles
-
+  dbg_trace "modifiedFiles: {modifiedFiles}"
   println s!"::notice::Applicable labels: {labels}"
 
+  dbg_trace "available labels {mathlibLabels.map (·.label)}"
   match labels with
   | #[] =>
     println s!"::warning::no label to add"
   | #[label] =>
     match prNumber? with
     | some n =>
+      dbg_trace "PR number {n}"
       let labelsPresent ← IO.Process.run {
         cmd := "gh"
         args := #["pr", "view", n, "--json", "labels", "--jq", "'.labels .[] .name'"]}
+      dbg_trace "labelsPresent {labelsPresent}"
       let labels := labelsPresent.split (· == '\n')
       let autoLabels := mathlibLabels.map (·.label)
       let t_labels_already_present := labels.filter autoLabels.contains
