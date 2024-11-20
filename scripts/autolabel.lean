@@ -29,7 +29,7 @@ These are printed for testing purposes.
 
 `lake exe autolabel [NUMBER]` will further try to add the applicable labels
 to the PR specified. This requires the **GitHub CLI** `gh` to be installed!
-Example: `lake exe autolabel 10402` for PR #10402.
+Example: `lake exe autolabel 10402` for PR https://github.com/leanprover-community/mathlib4/pull/10402.
 
 For the time being, the script only adds a label if it finds a **single unique label**
 which would apply. If multiple labels are found, nothing happens.
@@ -300,21 +300,19 @@ unsafe def main (args : List String): IO UInt32 := do
   | #[label] =>
     match prNumber? with
     | some n =>
-      dbg_trace "PR number '{n}'"
       let labelsPresent ← IO.Process.run {
         cmd := "gh"
-        args := #["pr", "view", "15", "--json", "labels", "--jq", ".labels .[] .name"]}
-      dbg_trace "labelsPresent {labelsPresent}"
+        args := #["pr", "view", n, "--json", "labels", "--jq", ".labels .[] .name"]}
       let labels := labelsPresent.split (· == '\n')
       let autoLabels := mathlibLabels.map (·.label)
-      let t_labels_already_present := labels.filter autoLabels.contains
-      if t_labels_already_present.isEmpty then
+      match labels.filter autoLabels.contains with
+      | [] => -- if the PR does not have a label that this script could add, then we add a label
         let _ ← IO.Process.run {
           cmd := "gh",
           args := #["pr", "edit", n, "--add-label", label] }
         println s!"::notice::added label: {label}"
-      else
-        println s!"::notice::did not added label {label}, since {t_labels_already_present} \
+      | t_labels_already_present =>
+        println s!"::notice::Did not add label '{label}', since {t_labels_already_present} \
                   were already present"
     | none =>
       println s!"::warning::no PR-number provided, not adding labels. \
