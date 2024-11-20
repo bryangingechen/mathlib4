@@ -157,9 +157,9 @@ jobs:
           if ! lake exe mk_all --check
           then
             echo "Not all lean files are in the import all files"
-            echo "mk_all=false" >> "${GITHUB_OUTPUT}"
+            echo "mk_all=false" > "${GITHUB_OUTPUT}"
           else
-            echo "mk_all=true" >> "${GITHUB_OUTPUT}"
+            echo "mk_all=true" > "${GITHUB_OUTPUT}"
           fi
 
       - name: build mathlib
@@ -173,6 +173,7 @@ jobs:
       - name: print the sizes of the oleans
         run: |
           du .lake/build/lib/Mathlib || echo "This code should be unreachable"
+          printf $'mk_all: \'%s\'' "${{ steps.mk_all.outputs.mk_all }}"
 
       - name: upload cache
         # We only upload the cache if the build started (whether succeeding, failing, or cancelled)
