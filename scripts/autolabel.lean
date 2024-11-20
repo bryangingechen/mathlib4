@@ -289,11 +289,9 @@ unsafe def main (args : List String): IO UInt32 := do
 
   -- find labels covering the modified files
   let labels := getMatchingLabels modifiedFiles
-  dbg_trace "gitDiff: '{gitDiff}'"
-  dbg_trace "modifiedFiles: '{modifiedFiles}'"
+
   println s!"::notice::Applicable labels: {labels}"
 
-  dbg_trace "available labels {mathlibLabels.map (·.label)}"
   match labels with
   | #[] =>
     println s!"::warning::no label to add"
