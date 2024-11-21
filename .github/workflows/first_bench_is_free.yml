@@ -13,7 +13,7 @@ jobs:
       - name: Produce bench message
         id: bench_message
         run: |
-          message='! **mangled** bench\n\nThis is an automated bench-marking that runs when a PR is opened. No need to repeat.\n'
+          message=$'!bench\n\nThis is an automated bench-marking that runs when a PR is opened. No need to repeat.\n'
           printf '%s' "${message}" | hexdump -cC
           printf 'message<<EOF\n%s\nEOF' "${message}" >> "${GITHUB_OUTPUT}"
 
