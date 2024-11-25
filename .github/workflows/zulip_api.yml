@@ -45,7 +45,7 @@ jobs:
       - name: Run Zulip Emoji Merge Delegate Script
         env:
           ZULIP_API_KEY: ${{ secrets.ZULIP_API_KEY }}
-          ZULIP_EMAIL: github-mathlib4-bot@leanprover.zulipchat.com
+          ZULIP_EMAIL: bryans-test-bot@zulipchat.com
           ZULIP_SITE: https://leanprover.zulipchat.com
         run: |
           #printf 'cat scripts/zulip_emoji_merge_delegate.py\n'
