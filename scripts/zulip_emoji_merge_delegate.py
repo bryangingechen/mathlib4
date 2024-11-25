@@ -22,7 +22,7 @@ client = zulip.Client(
     api_key=ZULIP_API_KEY,
     site=ZULIP_SITE
 )
-
+print(f"Searching for 'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}'")
 # Fetch the last 200 messages
 response = client.get_messages({
     "anchor": "newest",
