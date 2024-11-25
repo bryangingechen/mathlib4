@@ -27,7 +27,7 @@ client = zulip.Client(
 response = client.get_messages({
     "anchor": "newest",
     "narrow": [
-      {"operator": "search", "operand": f"https://github\.com/leanprover-community/mathlib4/pull/{PR_NUMBER}"},
+      {"operator": "message", "operand": f"https://github\.com/leanprover-community/mathlib4/pull/{PR_NUMBER}"},
       ],
 })
 
