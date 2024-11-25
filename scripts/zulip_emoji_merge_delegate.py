@@ -27,12 +27,9 @@ print(f"Searching for 'https://github.com/leanprover-community/mathlib4/pull/{PR
 # Fetch the last 200 messages
 response = client.get_messages({
     "anchor": "newest",
-    "num_before": 50,
+    "num_before": 200,
     "num_after": 0,
-    "narrow": [
-      { "operator": "search",
-        "operand": "https://github.com/leanprover-community/mathlib4/pull/18679" },
-      ],
+    "narrow": [{"operator": "channel", "operand": "PR reviews"}],
 })
 result = client.get_messages({'search': "https://github.com/leanprover-community/mathlib4/pull/"})
 
@@ -40,8 +37,13 @@ print(f"result: {result}")
 
 print(f"response: {response}")
 
+messages = response['messages']
+
+print(f"messages: {messages}")
 '''
-# messages = response['messages']
+
+pr_pattern = re.compile(r'https://github\.com/leanprover-community/mathlib4/pull/(\d+)')
+
 for message in messages:
     content = message['content']
     print(f"matched: '{message}'")
