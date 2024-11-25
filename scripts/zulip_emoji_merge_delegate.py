@@ -26,8 +26,8 @@ print(f"Searching for 'https://github.com/leanprover-community/mathlib4/pull/{PR
 # Fetch the last 200 messages
 response = client.get_messages({
     "anchor": "newest",
-    #"num_before": 10,
-    #"num_after": 0,
+    "num_before": 10,
+    "num_after": 0,
     "narrow": [
       {"operator": "search", "operand": "https://github.com/leanprover-community/mathlib4/pull/"},
       ],
