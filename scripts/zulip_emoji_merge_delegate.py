@@ -20,8 +20,9 @@ print(f"PR_NUMBER: '{PR_NUMBER}'")
 client = zulip.Client(
     email=ZULIP_EMAIL,
     api_key=ZULIP_API_KEY,
-    site=ZULIP_SITE
+    api_url=ZULIP_SITE #site=ZULIP_SITE
 )
+
 print(f"Searching for 'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}'")
 # Fetch the last 200 messages
 response = client.get_messages({
@@ -29,11 +30,13 @@ response = client.get_messages({
     "num_before": 5000,
     "num_after": 0,
     "narrow": [
-      {"operator": "search", "operand": "https://github.com/leanprover-community/mathlib4/pull/18679"},
+      { "operator": "search",
+        "operand": "https://github.com/leanprover-community/mathlib4/pull/18679" },
       ],
 })
+result = client.search("https://github.com/leanprover-community/mathlib4/pull/18679")
 
-print(f"response: {response}")
+print(f"result: {result}")
 
 '''
 # messages = response['messages']
