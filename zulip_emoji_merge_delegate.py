@@ -32,7 +32,7 @@ response = client.get_messages({
 print(f"response: {response}")
 
 '''
-messages = response['messages']
+# messages = response['messages']
 for message in messages:
     content = message['content']
     print(f"matched: '{message}'")
