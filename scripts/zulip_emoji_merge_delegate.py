@@ -38,6 +38,8 @@ result = client.get_messages({'search': "https://github.com/leanprover-community
 
 print(f"result: {result}")
 
+print(f"response: {response}")
+
 '''
 # messages = response['messages']
 for message in messages:
