@@ -64,7 +64,8 @@ jobs:
           pip install zulip
 
       - uses: actions/checkout@v4
-        #with:
+        with:
+          ref: master
         #  sparse-checkout: |
         #    scripts/zulip_emoji_merge_delegate.py
 
