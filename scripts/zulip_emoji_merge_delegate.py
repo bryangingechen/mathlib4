@@ -48,8 +48,8 @@ for message in messages:
     match = pr_pattern.search(content)
     if match:
         print(f"matched: '{message}'")
-    else:
-        print(f"unmatched: '{message}'")
+    #else:
+    #    print(f"unmatched: '{message}'")
 '''
     # Check for emoji reactions
     reactions = message['reactions']
