@@ -29,7 +29,7 @@ response = client.get_messages({
     #"num_before": 10,
     #"num_after": 0,
     "narrow": [
-      {"operator": "message", "operand": f"https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}"},
+      {"operator": "search", "operand": f"https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}"},
       ],
 })
 
