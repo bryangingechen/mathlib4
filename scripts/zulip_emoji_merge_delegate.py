@@ -34,7 +34,7 @@ response = client.get_messages({
         "operand": "https://github.com/leanprover-community/mathlib4/pull/18679" },
       ],
 })
-result = client.search("https://github.com/leanprover-community/mathlib4/pull/18679")
+result = client.get_messages({'search': "https://github.com/leanprover-community/mathlib4/pull/18679"})
 
 print(f"result: {result}")
 
