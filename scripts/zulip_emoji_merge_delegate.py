@@ -31,22 +31,26 @@ response = client.get_messages({
     "num_after": 0,
     "narrow": [{"operator": "channel", "operand": "PR reviews"}],
 })
-result = client.get_messages({'search': "https://github.com/leanprover-community/mathlib4/pull/"})
+#result = client.get_messages({'search': "https://github.com/leanprover-community/mathlib4/pull/"})
 
-print(f"result: {result}")
+#print(f"result: {result}")
 
-print(f"response: {response}")
+#print(f"response: {response}")
 
 messages = response['messages']
 
 print(f"messages: {messages}")
-'''
 
-pr_pattern = re.compile(r'https://github\.com/leanprover-community/mathlib4/pull/(\d+)')
+pr_pattern = re.compile('https://github\.com/leanprover-community/mathlib4/pull/18679')
 
 for message in messages:
     content = message['content']
-    print(f"matched: '{message}'")
+    match = pr_pattern.search(content)
+    if match:
+        print(f"matched: '{message}'")
+    else:
+        print(f"unmatched: '{message}'")
+'''
     # Check for emoji reactions
     reactions = message['reactions']
     has_peace_sign = any(reaction['emoji_name'] == 'peace_sign' for reaction in reactions)
