@@ -29,10 +29,10 @@ response = client.get_messages({
     "anchor": "newest",
     "num_before": 50,
     "num_after": 0,
-    #"narrow": [
-    #  { "operator": "search",
-    #    "operand": "https://github.com/leanprover-community/mathlib4/pull/" },
-    #  ],
+    "narrow": [
+      { "operator": "search",
+        "operand": "https://github.com/leanprover-community/mathlib4/pull/" },
+      ],
 })
 result = client.get_messages({'search': "https://github.com/leanprover-community/mathlib4/pull/"})
 
