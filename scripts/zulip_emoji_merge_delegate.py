@@ -11,7 +11,7 @@ ZULIP_API_KEY = sys.argv[1]
 ZULIP_EMAIL = sys.argv[2]
 ZULIP_SITE = sys.argv[3]
 LABEL = sys.argv[4]
-PR_NUMBER = sys.argv[5]
+PR_NUMBER = 18679 #sys.argv[5]
 
 print(f"LABEL: '{LABEL}'")
 print(f"PR_NUMBER: '{PR_NUMBER}'")
@@ -25,12 +25,12 @@ client = zulip.Client(
 
 # Fetch the last 200 messages
 response = client.get_messages({
-    "anchor": "newest",
-    "num_before": 10,
-    "num_after": 0,
-    #"narrow": [
-    #  {"operator": "message", "operand": f"https://github\.com/leanprover-community/mathlib4/pull/{PR_NUMBER}"},
-    #  ],
+    #"anchor": "newest",
+    #"num_before": 10,
+    #"num_after": 0,
+    "narrow": [
+      {"operator": "message", "operand": f"https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}"},
+      ],
 })
 
 print(f"response: {response}")
