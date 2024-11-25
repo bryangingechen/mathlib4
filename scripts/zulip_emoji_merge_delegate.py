@@ -20,7 +20,7 @@ print(f"PR_NUMBER: '{PR_NUMBER}'")
 client = zulip.Client(
     email=ZULIP_EMAIL,
     api_key=ZULIP_API_KEY,
-    api_url=ZULIP_SITE #site=ZULIP_SITE
+    site=ZULIP_SITE
 )
 
 print(f"Searching for 'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}'")
