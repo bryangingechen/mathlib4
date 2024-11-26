@@ -22,7 +22,7 @@ client = zulip.Client(
     api_key=ZULIP_API_KEY,
     site=ZULIP_SITE
 )
-'''
+
 # Fetch the last 200 messages
 public_response = client.get_messages({
     "anchor": "newest",
@@ -35,7 +35,6 @@ public_response = client.get_messages({
         {"operator": "search", "operand": f'{PR_NUMBER}'},
     ],
 })
-'''
 
 reviewers_response = client.get_messages({
     "anchor": "newest",
@@ -47,10 +46,9 @@ reviewers_response = client.get_messages({
     ],
 })
 
-messages = (reviewers_response['messages'])
-#messages = (public_response['messages']) + (reviewers_response['messages'])
+messages = (public_response['messages']) + (reviewers_response['messages'])
 
-#print(f"public_response:{public_response}")
+print(f"public_response:{public_response}")
 print(f"reviewers_response:{reviewers_response}")
 pr_pattern = re.compile(f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}')
 
