@@ -40,7 +40,10 @@ maintainer_response = client.get_messages({
     "anchor": "newest",
     "num_before": 200,
     "num_after": 0,
-    "narrow": [{"operator": "channel", "operand": "mathlib reviewers"}],
+    "narrow": [
+        {"operator": "channel", "operand": "mathlib reviewers"},
+        {"operator": "search", "operand": f'{PR_NUMBER}'},
+    ],
 })
 
 
