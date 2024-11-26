@@ -2,7 +2,7 @@ name: Add "ready-to-merge" and "delegated" label
 
 # triggers the action when
 on:
-  #push:
+  push:
   # the PR receives a comment
   issue_comment:
     types: [created]
