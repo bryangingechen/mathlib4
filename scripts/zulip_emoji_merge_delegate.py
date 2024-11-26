@@ -30,12 +30,12 @@ response = client.get_messages({
     "num_after": 0,
     #"narrow": [{"operator": "channel", "operand": "PR reviews"}],
     #"narrow": [{"operator": "search", "operand": f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}'}],
-    "narrow": [{"operator": "search", "operand": f'github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}'}],
+    "narrow": [{"operator": "search", "operand": f'#{PR_NUMBER}'}],
 })
 
 messages = response['messages']
 
-pr_pattern = re.compile(f'#{PR_NUMBER}')
+pr_pattern = re.compile(f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}')
 
 print(f"Searching for: '{pr_pattern}'")
 
