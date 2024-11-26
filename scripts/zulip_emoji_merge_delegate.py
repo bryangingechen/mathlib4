@@ -45,10 +45,11 @@ reviewers_response = client.get_messages({
     ],
 })
 
-messages = (public_response['messages']) + (reviewers_response['messages'])
-
 print(f"public_response:{public_response}")
 print(f"reviewers_response:{reviewers_response}")
+
+messages = (public_response['messages']) + (reviewers_response['messages'])
+
 pr_pattern = re.compile(f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}')
 
 print(f"Searching for: '{pr_pattern}'")
