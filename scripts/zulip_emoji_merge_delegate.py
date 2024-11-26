@@ -36,7 +36,7 @@ public_response = client.get_messages({
     ],
 })
 '''
-public_response = []
+
 reviewers_response = client.get_messages({
     "anchor": "newest",
     "num_before": 2500,
@@ -47,7 +47,8 @@ reviewers_response = client.get_messages({
     ],
 })
 
-messages = (public_response['messages']) + (reviewers_response['messages'])
+messages = (reviewers_response['messages'])
+#messages = (public_response['messages']) + (reviewers_response['messages'])
 
 print(f"public_response:{public_response}")
 print(f"reviewers_response:{reviewers_response}")
