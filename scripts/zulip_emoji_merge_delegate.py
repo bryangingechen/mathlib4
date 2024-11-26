@@ -47,7 +47,7 @@ for message in messages:
     match = pr_pattern.search(content)
     if match:
         print(f"matched: '{message}'")
-
+'''
         # removing previous emoji reactions
         print("Removing previous reactions, if present.")
         if has_peace_sign:
@@ -92,3 +92,4 @@ for message in messages:
                 "message_id": message['id'],
                 "emoji_name": "merge"
             })
+'''
