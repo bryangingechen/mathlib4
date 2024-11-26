@@ -43,11 +43,11 @@ maintainer_response = client.get_messages({
     "narrow": [{"operator": "channel", "operand": "mathlib reviewers"}],
 })
 
-response = public_response ++ maintainer_response
 
-messages = response['messages']
+messages = public_response['messages'] ++ maintainer_response['messages']
 
-print(response)
+print(f"public_response:{public_response}")
+print(f"maintainer_response:{maintainer_response}")
 pr_pattern = re.compile(f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}')
 
 print(f"Searching for: '{pr_pattern}'")
