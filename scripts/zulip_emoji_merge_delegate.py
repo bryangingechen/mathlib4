@@ -34,7 +34,7 @@ response = client.get_messages({
 })
 
 messages = response['messages']
-
+print(response)
 pr_pattern = re.compile(f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}')
 
 print(f"Searching for: '{pr_pattern}'")
