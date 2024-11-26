@@ -31,15 +31,8 @@ response = client.get_messages({
     "num_after": 0,
     "narrow": [{"operator": "channel", "operand": "PR reviews"}],
 })
-#result = client.get_messages({'search': "https://github.com/leanprover-community/mathlib4/pull/"})
-
-#print(f"result: {result}")
-
-#print(f"response: {response}")
 
 messages = response['messages']
-
-print(f"messages: {messages}")
 
 pr_pattern = re.compile(f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}')
 
@@ -48,69 +41,44 @@ for message in messages:
     match = pr_pattern.search(content)
     if match:
         print(f"matched: '{message}'")
-    #else:
-    #    print(f"unmatched: '{message}'")
-'''
-    # Check for emoji reactions
-    reactions = message['reactions']
-    has_peace_sign = any(reaction['emoji_name'] == 'peace_sign' for reaction in reactions)
-    has_bors = any(reaction['emoji_name'] == 'bors' for reaction in reactions)
-    has_merge = any(reaction['emoji_name'] == 'merge' for reaction in reactions)
 
-    pr_url = f"https://api.github.com/repos/leanprover-community/mathlib4/pulls/{PR_NUMBER}"
-
-    print('Removing peace_sign')
-    result = client.remove_reaction({
-        "message_id": message['id'],
-        "emoji_name": "peace_sign"
-    })
-    print(f"result: '{result}'")
-    print('Removing bors')
-    result = client.remove_reaction({
-        "message_id": message['id'],
-        "emoji_name": "bors"
-    })
-    print(f"result: '{result}'")
-
-    print('Removing merge')
-    result = client.remove_reaction({
-        "message_id": message['id'],
-        "emoji_name": "merge"
-    })
-    print(f"result: '{result}'")
-
-    if 'delegated' == LABEL:
-        print('adding delegated')
-
-        client.add_reaction({
+        # removing previous emoji reactions
+        print('Removing peace_sign')
+        result = client.remove_reaction({
             "message_id": message['id'],
             "emoji_name": "peace_sign"
         })
-    elif 'ready-to-merge' == LABEL:
-        print('adding ready-to-merge')
-        if has_peace_sign:
-            client.remove_reaction({
-                "message_id": message['id'],
-                "emoji_name": "peace_sign"
-            })
-        client.add_reaction({
+        print(f"result: '{result}'")
+        print('Removing bors')
+        result = client.remove_reaction({
             "message_id": message['id'],
             "emoji_name": "bors"
         })
-    elif LABEL.startswith("[Merged by Bors]"):
-        print('adding [Merged by Bors]')
-        if has_peace_sign:
-            client.remove_reaction({
-                "message_id": message['id'],
-                "emoji_name": "peace_sign"
-            })
-        if has_bors:
-            client.remove_reaction({
-                "message_id": message['id'],
-                "emoji_name": "bors"
-            })
-        client.add_reaction({
+        print(f"result: '{result}'")
+
+        print('Removing merge')
+        result = client.remove_reaction({
             "message_id": message['id'],
             "emoji_name": "merge"
         })
-'''
+        print(f"result: '{result}'")
+
+        # applying appropriate emoji reaction
+        if 'delegated' == LABEL:
+            print('adding delegated')
+            client.add_reaction({
+                "message_id": message['id'],
+                "emoji_name": "peace_sign"
+            })
+        elif 'ready-to-merge' == LABEL:
+            print('adding ready-to-merge')
+            client.add_reaction({
+                "message_id": message['id'],
+                "emoji_name": "bors"
+            })
+        elif LABEL.startswith("[Merged by Bors]"):
+            print('adding [Merged by Bors]')
+            client.add_reaction({
+                "message_id": message['id'],
+                "emoji_name": "merge"
+            })
