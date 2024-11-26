@@ -35,13 +35,13 @@ response = client.get_messages({
 
 messages = response['messages']
 
-pr_pattern = re.compile(f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}')
+pr_pattern = re.compile(f'#{PR_NUMBER}')
 
 print(f"Searching for: '{pr_pattern}'")
 
 for message in messages:
     content = message['content']
-    print(f"STARt\n{content}\nEND")
+    print(f"START\n{content}\nEND")
 '''
     # Check for emoji reactions
     reactions = message['reactions']
