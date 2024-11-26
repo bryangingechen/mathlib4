@@ -41,7 +41,7 @@ messages = response['messages']
 
 print(f"messages: {messages}")
 
-pr_pattern = re.compile('https://github\.com/leanprover-community/mathlib4/pull/18679')
+pr_pattern = re.compile(f'https://github\.com/leanprover-community/mathlib4/pull/{PR_NUMBER}')
 
 for message in messages:
     content = message['content']
