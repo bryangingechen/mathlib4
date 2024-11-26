@@ -42,15 +42,15 @@ print(f"Searching for: '{pr_pattern}'")
 for message in messages:
     content = message['content']
     print(f"START\n{content}\nEND")
+    match = pr_pattern.search(content)
+    if match:
+        print(f"matched: '{message}'")
 '''
     # Check for emoji reactions
     reactions = message['reactions']
     has_peace_sign = any(reaction['emoji_name'] == 'peace_sign' for reaction in reactions)
     has_bors = any(reaction['emoji_name'] == 'bors' for reaction in reactions)
     has_merge = any(reaction['emoji_name'] == 'merge' for reaction in reactions)
-    match = pr_pattern.search(content)
-    if match:
-        print(f"matched: '{message}'")
         # removing previous emoji reactions
         print("Removing previous reactions, if present.")
         if has_peace_sign:
