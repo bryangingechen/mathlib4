@@ -41,10 +41,10 @@ print(f"Searching for: '{pr_pattern}'")
 
 for message in messages:
     content = message['content']
-    print(f"START\n{content}\nEND")
+    print(f"Passes the first filter:\n{content}\nUp to here.")
     match = pr_pattern.search(content)
     if match:
-        print(f"matched: '{message}'")
+        print(f"Passes the second filter: '{message['content']}'")
 '''
     # Check for emoji reactions
     reactions = message['reactions']
