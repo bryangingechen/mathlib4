@@ -11,7 +11,7 @@ ZULIP_API_KEY = sys.argv[1]
 ZULIP_EMAIL = sys.argv[2]
 ZULIP_SITE = sys.argv[3]
 LABEL = sys.argv[4]
-PR_NUMBER = 18679 #sys.argv[5]
+PR_NUMBER = 19377 # 18679 #sys.argv[5]
 
 print(f"LABEL: '{LABEL}'")
 print(f"PR_NUMBER: '{PR_NUMBER}'")
@@ -29,7 +29,7 @@ response = client.get_messages({
     "anchor": "newest",
     "num_before": 200,
     "num_after": 0,
-    "narrow": [{"operator": "channel", "operand": "PR reviews"}],
+    "narrow": [{"operator": "channel", "operand": "PR reviews"}, {"operator": "channel", "operand": "mathlib reviewers"}],
 })
 #result = client.get_messages({'search': "https://github.com/leanprover-community/mathlib4/pull/"})
 
