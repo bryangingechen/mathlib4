@@ -38,7 +38,7 @@ public_response = client.get_messages({
 
 maintainer_response = client.get_messages({
     "anchor": "newest",
-    "num_before": 200,
+    "num_before": 5000,
     "num_after": 0,
     "narrow": [
         {"operator": "channel", "operand": "mathlib reviewers"},
