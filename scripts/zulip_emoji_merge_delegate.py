@@ -44,7 +44,7 @@ maintainer_response = client.get_messages({
 })
 
 
-messages = public_response['messages'] ++ maintainer_response['messages']
+messages = (public_response['messages']) + (maintainer_response['messages'])
 
 print(f"public_response:{public_response}")
 print(f"maintainer_response:{maintainer_response}")
