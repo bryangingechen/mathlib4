@@ -24,7 +24,7 @@ client = zulip.Client(
 )
 
 # Fetch the last 200 messages
-response = client.get_messages({
+public_response = client.get_messages({
     "anchor": "newest",
     "num_before": 5000,
     "num_after": 0,
@@ -36,7 +36,17 @@ response = client.get_messages({
     ],
 })
 
+maintainer_response = client.get_messages({
+    "anchor": "newest",
+    "num_before": 200,
+    "num_after": 0,
+    "narrow": [{"operator": "channel", "operand": "mathlib reviewers"}],
+})
+
+response = public_response ++ maintainer_response
+
 messages = response['messages']
+
 print(response)
 pr_pattern = re.compile(f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}')
 
