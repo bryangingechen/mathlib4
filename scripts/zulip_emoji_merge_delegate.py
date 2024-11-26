@@ -29,7 +29,8 @@ response = client.get_messages({
     "num_before": 200,
     "num_after": 0,
     #"narrow": [{"operator": "channel", "operand": "PR reviews"}],
-    "narrow": [{"operator": "search", "operand": f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}'}],
+    #"narrow": [{"operator": "search", "operand": f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}'}],
+    "narrow": [{"operator": "search", "operand": f'#{PR_NUMBER}'}],
 })
 
 messages = response['messages']
