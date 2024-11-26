@@ -28,7 +28,8 @@ response = client.get_messages({
     "anchor": "newest",
     "num_before": 200,
     "num_after": 0,
-    "narrow": [{"operator": "channel", "operand": "PR reviews"}],
+    #"narrow": [{"operator": "channel", "operand": "PR reviews"}],
+    "narrow": [{"operator": "search", "operand": f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}'}],
 })
 
 messages = response['messages']
@@ -39,6 +40,8 @@ print(f"Searching for: '{pr_pattern}'")
 
 for message in messages:
     content = message['content']
+    print(content)
+'''
     # Check for emoji reactions
     reactions = message['reactions']
     has_peace_sign = any(reaction['emoji_name'] == 'peace_sign' for reaction in reactions)
@@ -47,7 +50,6 @@ for message in messages:
     match = pr_pattern.search(content)
     if match:
         print(f"matched: '{message}'")
-'''
         # removing previous emoji reactions
         print("Removing previous reactions, if present.")
         if has_peace_sign:
