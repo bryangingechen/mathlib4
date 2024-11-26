@@ -26,7 +26,7 @@ client = zulip.Client(
 # Fetch the last 200 messages
 public_response = client.get_messages({
     "anchor": "newest",
-    "num_before": 2500,
+    "num_before": 5000,
     "num_after": 0,
     #"narrow": [{"operator": "channel", "operand": "PR reviews"}],
     #"narrow": [{"operator": "search", "operand": f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}'}],
@@ -38,7 +38,7 @@ public_response = client.get_messages({
 
 reviewers_response = client.get_messages({
     "anchor": "newest",
-    "num_before": 2500,
+    "num_before": 5000,
     "num_after": 0,
     "narrow": [
         {"operator": "channel", "operand": "mathlib reviewers"},
