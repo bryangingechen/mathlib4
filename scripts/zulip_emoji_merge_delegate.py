@@ -23,7 +23,7 @@ client = zulip.Client(
     site=ZULIP_SITE
 )
 
-# Fetch the last 200 messages
+# Fetch the messages containing the PR number from the public channels
 public_response = client.get_messages({
     "anchor": "newest",
     "num_before": 5000,
@@ -34,6 +34,7 @@ public_response = client.get_messages({
     ],
 })
 
+# Fetch the messages containing the PR number from the `mathlib reviewers` channel
 reviewers_response = client.get_messages({
     "anchor": "newest",
     "num_before": 5000,
