@@ -41,7 +41,7 @@ print(f"Searching for: '{pr_pattern}'")
 
 for message in messages:
     content = message['content']
-    print(content)
+    print(f"STARt\n{content}\nEND")
 '''
     # Check for emoji reactions
     reactions = message['reactions']
