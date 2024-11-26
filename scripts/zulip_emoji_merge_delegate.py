@@ -36,7 +36,7 @@ public_response = client.get_messages({
     ],
 })
 
-maintainer_response = client.get_messages({
+reviewers_response = client.get_messages({
     "anchor": "newest",
     "num_before": 5000,
     "num_after": 0,
@@ -46,11 +46,10 @@ maintainer_response = client.get_messages({
     ],
 })
 
-
-messages = (public_response['messages']) + (maintainer_response['messages'])
+messages = (public_response['messages']) + (reviewers_response['messages'])
 
 print(f"public_response:{public_response}")
-print(f"maintainer_response:{maintainer_response}")
+print(f"reviewers_response:{reviewers_response}")
 pr_pattern = re.compile(f'https://github.com/leanprover-community/mathlib4/pull/{PR_NUMBER}')
 
 print(f"Searching for: '{pr_pattern}'")
