@@ -74,6 +74,9 @@ jobs:
       - name: Check if push is needed
         # We only push if `lake update` actually results in changes compared to update-dependencies-bot-use-only
         # We have to check here because peter-evans/create-pull-request will force-push unnecessarily otherwise
+
+        # actually, not sure we want this - it could be that something is merged into `master` which is broken after `lake update`;
+        # with this change, we would get a failure at the bors stage and then someone would need to merge `master` into this manually.
         if: ${{ !contains(steps.PR.outputs.pr_labels, 'ready-to-merge') }}
         id: check_push
         run: |
