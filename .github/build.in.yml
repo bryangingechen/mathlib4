@@ -512,6 +512,7 @@ jobs:
           done < ".lake/prs.txt" | jq --slurp . > .lake/prs_files.json
 
           # identify candidate broken PRs from build_summary files and prs_files.json
+          # (if we run a script here, run it from master branch!)
 
           # craft message
 
