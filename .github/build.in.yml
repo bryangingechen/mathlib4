@@ -487,8 +487,36 @@ jobs:
           master-branch/scripts/lean-pr-testing-comments.sh lean
           master-branch/scripts/lean-pr-testing-comments.sh batteries
 
-      - name: Post staging failure message
+      - name: Generate staging failure message
+        id: staging_failure_msg
         if: ${{ STAGING_CONDITION && failure() }}
+        run: |
+          # get list of PRs in this batch
+          cd pr-branch/
+          git log master.. --pretty=format:%B | sed -nr '\(#[0-9]+\)$' > .lake/prs.txt
+
+          if [ $(wc -l < ".lake/prs.txt") -eq 1 ]; then
+            echo "There is only one PR in this failed batch, exiting."
+            cat .lake/prs.txt
+            exit 0
+          else
+            echo "This batch contains the following PRs:"
+            cat .lake/prs.txt
+          fi
+
+          # get files modified by each PR, write to JSON file
+          while IFS= read -r LINE || [ -n "$LINE" ]; do
+            echo "{\"$LINE\":"
+            gh pr diff "$LINE" --name-only | jq -Rsn '[inputs]'
+            echo "}"
+          done < ".lake/prs.txt" | jq --slurp . > .lake/prs_files.json
+
+          # identify candidate broken PRs from build_summary files and prs_files.json
+
+          # craft message
+
+      - name: Post staging failure message
+        if: ${{ STAGING_CONDITION && failure() && steps.staging_failure_msg.outputs.message }}
         uses: zulip/github-actions-zulip/send-message@e4c8f27c732ba9bd98ac6be0583096dea82feea5 # v1.0.2
         with:
           api-key: ${{ secrets.ZULIP_API_KEY }}
@@ -498,7 +526,7 @@ jobs:
           type: 'stream'
           topic: 'mathlib bors notifications'
           content: |
-            TODO
+            ${{ steps.staging_failure_msg.outputs.message }}
         continue-on-error: true
 
   post_steps:
