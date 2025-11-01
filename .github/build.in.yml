@@ -487,6 +487,20 @@ jobs:
           master-branch/scripts/lean-pr-testing-comments.sh lean
           master-branch/scripts/lean-pr-testing-comments.sh batteries
 
+      - name: Post staging failure message
+        if: ${{ STAGING_CONDITION && failure() }}
+        uses: zulip/github-actions-zulip/send-message@e4c8f27c732ba9bd98ac6be0583096dea82feea5 # v1.0.2
+        with:
+          api-key: ${{ secrets.ZULIP_API_KEY }}
+          email: 'github-mathlib4-bot@leanprover.zulipchat.com'
+          organization-url: 'https://leanprover.zulipchat.com'
+          to: 'rss'
+          type: 'stream'
+          topic: 'mathlib bors notifications'
+          content: |
+            TODO
+        continue-on-error: true
+
   post_steps:
     name: Post-Build StepJOB_NAME
     if: FORK_CONDITION
