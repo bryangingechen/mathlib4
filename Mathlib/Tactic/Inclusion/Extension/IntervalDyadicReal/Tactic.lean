@@ -6,9 +6,9 @@ Authors: David Ledvinka
 module
 
 public meta import Mathlib.Tactic.Inclusion.Core.Elab
-public meta import Mathlib.Tactic.Inclusion.Extension.Core.Core
-public import Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Rational
-public meta import Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses
+public meta import Mathlib.Tactic.Inclusion.Extension.Core.Core  -- shake: keep (macro output dependency)
+public import Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Rational  -- shake: keep (macro output dependency)
+public meta import Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses  -- shake: keep (macro output dependency)
 
 /-!
 # The `dyadic_interval` tactic
